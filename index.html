@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Support Link Box - Professional Final</title>
+    <title>10 SEC B2B - Professional Final</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         /* --- ১. বেসিক সেটিংস --- */
@@ -118,8 +118,8 @@
         <div class="header-left">
             <div class="logo-circle"></div>
             <div class="brand-text-box">
-                <span class="brand-name">10 SEC</span>
-                <span class="brand-name">B2B</span>
+                <span class="brand-name">Support</span>
+                <span class="brand-name">Box</span>
             </div>
         </div>
         <a href="contact.html" class="contact-btn">Contact Us</a>
@@ -167,18 +167,26 @@
             </div>
         </section>
 
+        <section id="support-page" class="page">
+            <div class="card">
+                <h3 style="color: #ffdb58;">সাপোর্ট শুরু হয়েছে!</h3>
+                <p style="margin-top:10px; font-size: 14px;">আপনার সাপোর্ট টাস্কগুলো এখানে দেখা যাবে।</p>
+                <button class="main-btn btn-purple" style="width:100%; margin-top:20px;" onclick="showPage('home-page')">হোমে ফিরে যান</button>
+            </div>
+        </section>
+
         <section id="profile-page" class="page">
             <div class="card" style="padding: 15px;">
                 <h3 style="text-align: center; color: #ffdb58; margin-bottom: 15px; font-size: 16px;">ইউজার ড্যাশবোর্ড</h3>
                 
                 <div class="mini-stat">
                     <h4>সাপোর্ট দিয়েছেন</h4>
-                    <div class="num" id="give-count">০</div>
+                    <div class="num">০</div>
                 </div>
 
                 <div class="mini-stat">
                     <h4>সাপোর্ট পেয়েছেন</h4>
-                    <div class="num" id="receive-count">০</div>
+                    <div class="num">০</div>
                 </div>
 
                 <div class="mini-stat" style="border-left-color: #00b09b;">
@@ -199,31 +207,50 @@
     </nav>
 
     <script>
-        // স্লাইডার
+        // স্লাইডার কন্ট্রোল
         let sIdx = 0;
         const slides = document.querySelectorAll('.member-slide');
         setInterval(() => {
-            slides[sIdx].classList.remove('active');
-            sIdx = (sIdx + 1) % slides.length;
-            slides[sIdx].classList.add('active');
+            if(slides.length > 0) {
+                slides[sIdx].classList.remove('active');
+                sIdx = (sIdx + 1) % slides.length;
+                slides[sIdx].classList.add('active');
+            }
         }, 3000);
 
-        // পেজ সুইচ
+        // পেজ সুইচিং ফাংশন
         function showPage(pId, el) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            document.getElementById(pId).classList.add('active');
-            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-            if(el) el.classList.add('active');
+            const targetPage = document.getElementById(pId);
+            if(targetPage) targetPage.classList.add('active');
+
+            if(el) {
+                document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+                el.classList.add('active');
+            }
             window.scrollTo(0, 0);
         }
 
-        // --- ডাটাবেজ (Google Sheets) কানেকশন ---
+        // আইপি অ্যাড্রেস সংগ্রহ
+        fetch('https://api.ipify.org?format=json')
+            .then(res => res.json())
+            .then(data => {
+                const ipEl = document.getElementById('user-ip');
+                if(ipEl) ipEl.innerText = data.ip;
+            })
+            .catch(() => {
+                const ipEl = document.getElementById('user-ip');
+                if(ipEl) ipEl.innerText = "IP Not Found";
+            });
+
+        // --- নতুন এবং কার্যকরী সাবমিট ফাংশন ---
         async function submitLink() {
             const postLink = document.getElementById('post-link').value;
             const comment = document.getElementById('msg').value;
             const submitBtn = document.getElementById('submit-btn');
+            const userIP = document.getElementById('user-ip').innerText;
             
-            // সিলেক্টেড ইমোজিগুলো নেওয়া
+            // ইমোজি সংগ্রহ
             let selectedReacts = [];
             document.querySelectorAll('.emoji-grid input:checked').forEach(cb => {
                 selectedReacts.push(cb.parentElement.innerText.trim());
@@ -234,10 +261,10 @@
                 return;
             }
 
-            // আপনার গুগল অ্যাপস স্ক্রিপ্ট URL এখানে বসান
-            const scriptURL = 'https://script.google.com/macros/s/AKfycbwIAUd7fjrvkm5wxupVydWtxx7ZsddOtuwz8CdaJr_YWFflUgKE1c1nt1BjIbHIJZA-jw/exec';
+            // !!! আপনার গুগল অ্যাপস স্ক্রিপ্ট এর নতুন WEB APP URL এখানে বসান !!!
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbyVWdd5a79fiVNuvatkVAAtIHZgNA8Ckr5PsWg4ztZmvaQwdlykWXJQhm7cwHTXmqu7Dw/exec';
 
-            // বাটন ডিজেবল করা যাতে বারবার ক্লিক না হয়
+            // বাটন ডিজেবল ও লোডিং টেক্সট
             submitBtn.disabled = true;
             submitBtn.innerText = "প্রসেসিং...";
 
@@ -245,48 +272,41 @@
                 postLink: postLink,
                 reacts: selectedReacts.join(', '),
                 comment: comment,
-                ip: document.getElementById('user-ip').innerText
+                ip: userIP
             };
 
             try {
                 // গুগল শিটে ডাটা পাঠানো
                 await fetch(scriptURL, {
                     method: 'POST',
-                    mode: 'no-cors', // গুগল শিটের জন্য এটি প্রয়োজন
-                    cache: 'no-cache',
-                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(data)
                 });
 
-                // সফল হলে নোটিফিকেশন দেখানো
+                // নোটিফিকেশন বার দেখানো
                 const notify = document.getElementById('success-notification');
                 notify.classList.add('show');
 
-                // ফর্ম ক্লিয়ার করা
+                // ইনপুট ফর্ম খালি করা
                 document.getElementById('post-link').value = '';
                 document.getElementById('msg').value = '';
+                document.querySelectorAll('.emoji-grid input').forEach(cb => cb.checked = false);
 
                 setTimeout(() => {
                     notify.classList.remove('show');
-                    showPage('home-page', document.getElementById('nav-home'));
                     submitBtn.disabled = false;
                     submitBtn.innerText = "সাবমিট করুন";
-                }, 3500);
+                    
+                    // সফল সাবমিট হওয়ার পর 'সাপোর্ট শুরু করুন' পেজে নিয়ে যাওয়া
+                    showPage('support-page'); 
+                }, 2500);
 
             } catch (error) {
                 console.error('Error!', error.message);
-                alert("দুঃখিত, ডাটা পাঠাতে সমস্যা হয়েছে। আবার চেষ্টা করুন।");
+                alert("কিছু একটা সমস্যা হয়েছে। আপনার ইন্টারনেট বা গুগল স্ক্রিপ্ট URL চেক করুন।");
                 submitBtn.disabled = false;
                 submitBtn.innerText = "সাবমিট করুন";
             }
         }
-
-        // আইপি অ্যাড্রেস অটো দেখানো
-        fetch('https://api.ipify.org?format=json')
-            .then(res => res.json())
-            .then(data => document.getElementById('user-ip').innerText = data.ip)
-            .catch(() => document.getElementById('user-ip').innerText = "103.XXX.XX.XX");
-            
     </script>
 </body>
 </html>
