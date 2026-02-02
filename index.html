@@ -20,15 +20,9 @@
             backdrop-filter: blur(10px); position: sticky; top: 0; z-index: 1000;
         }
         .header-left { display: flex; align-items: center; gap: 15px; }
-        .logo-circle {
-            width: 45px; height: 45px; background: #fff; border-radius: 50%;
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
-        }
+        .logo-circle { width: 45px; height: 45px; background: #fff; border-radius: 50%; }
         .brand-text-box { display: flex; flex-direction: column; } 
-        .brand-name { 
-            font-size: 1.1rem; font-weight: 900; line-height: 1; 
-            color: #fff; letter-spacing: 0.5px;
-        }
+        .brand-name { font-size: 1.1rem; font-weight: 900; line-height: 1; color: #fff; }
 
         .contact-btn {
             padding: 8px 18px; border-radius: 20px; border: none;
@@ -37,36 +31,24 @@
             text-decoration: none; display: inline-block;
         }
 
-        /* --- ৩. নোটিফিকেশন বার --- */
-        #success-notification {
-            position: fixed; top: -120px; left: 50%; transform: translateX(-50%);
-            width: 85%; max-width: 380px;
-            background: linear-gradient(135deg, #1D976C 0%, #93F9B9 100%);
-            color: #fff; padding: 15px; border-radius: 12px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
-            z-index: 9999; display: flex; align-items: center; gap: 12px;
-            transition: 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        /* --- ৩. ব্যান নোটিফিকেশন বক্স (সুন্দর নোটিশ) --- */
+        #ban-modal {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85); z-index: 10000;
+            display: none; align-items: center; justify-content: center;
         }
-        #success-notification.show { top: 20px; }
+        .ban-box {
+            background: #fff; color: #333; padding: 30px; border-radius: 20px;
+            text-align: center; width: 90%; max-width: 380px; border-top: 6px solid #ff0000;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
 
-        /* --- ৪. পেজ ও স্লাইডার --- */
+        /* --- ৪. পেজ ও কার্ড --- */
         .page { display: none; padding: 20px; text-align: center; margin-bottom: 85px; }
         .page.active { display: block; animation: fadeIn 0.4s ease; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        .team-section { margin-top: 30px; position: relative; width: 100%; height: 260px; overflow: hidden; }
-        .member-slide {
-            position: absolute; width: 100%; left: 0; top: 0; opacity: 0; 
-            visibility: hidden; transition: 0.8s; transform: scale(0.9);
-        }
-        .member-slide.active { opacity: 1; visibility: visible; transform: scale(1); }
-        .member-img-large {
-            width: 130px; height: 130px; border-radius: 50%;
-            background: #fff; margin: 0 auto 10px; border: 4px solid #ff00cc;
-        }
-
-        /* --- ৫. বাটন ও কার্ড --- */
-        .button-wrapper { display: flex; flex-direction: column; gap: 12px; margin-top: 20px; }
+        .card { background: rgba(255, 255, 255, 0.1); padding: 20px; border-radius: 15px; text-align: left; }
         .main-btn {
             padding: 16px; border-radius: 12px; border: none;
             font-size: 1rem; font-weight: bold; color: white; cursor: pointer;
@@ -74,43 +56,42 @@
         .btn-green { background: linear-gradient(to right, #00b09b, #96c93d); }
         .btn-purple { background: linear-gradient(to right, #8e2de2, #4a00e0); }
 
-        .card { background: rgba(255, 255, 255, 0.1); padding: 20px; border-radius: 15px; text-align: left; }
-        input, textarea { width: 100%; padding: 10px; border-radius: 8px; border: none; background: #eee; margin-top: 8px; color: #333; }
+        input, textarea { width: 100%; padding: 12px; border-radius: 8px; border: none; background: #eee; margin-top: 8px; color: #333; }
         
         .emoji-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 12px 0; }
-        .emoji-grid label { background: rgba(255,255,255,0.08); padding: 8px; border-radius: 8px; font-size: 13px; display: flex; align-items: center; gap: 8px; }
+        .emoji-grid label { background: rgba(255,255,255,0.08); padding: 10px; border-radius: 8px; font-size: 13px; display: flex; align-items: center; gap: 8px; }
 
-        /* --- ৬. প্রোফাইল পেজ --- */
-        .mini-stat {
-            background: rgba(255, 255, 255, 0.1); padding: 12px 15px; 
-            border-radius: 12px; border-left: 4px solid #ffdb58; 
-            margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center;
+        /* --- ৫. সাপোর্ট লিস্ট (সিরিয়াল ও ওপেন বাটন) --- */
+        .support-item {
+            background: rgba(255, 255, 255, 0.08); padding: 15px; border-radius: 15px;
+            margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center;
+            border-left: 5px solid #ffdb58; text-align: left;
         }
-        .mini-stat h4 { font-size: 13px; font-weight: 500; opacity: 0.9; }
-        .mini-stat .num { font-size: 18px; font-weight: bold; color: #ffdb58; }
+        .task-id { font-size: 20px; font-weight: bold; color: #ffdb58; margin-right: 15px; }
+        .open-btn {
+            background: #2575fc; color: white; padding: 10px 18px;
+            border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 13px;
+        }
 
-        /* --- ৭. বটম নেভিগেশন --- */
+        /* --- ৬. বটম নেভিগেশন --- */
         .bottom-nav {
             position: fixed; bottom: 0; width: 100%; height: 70px;
             background: linear-gradient(90deg, #6a11cb 0%, #2575fc 100%);
             display: flex; justify-content: space-around; align-items: center;
             border-radius: 20px 20px 0 0; z-index: 2000;
         }
-        .nav-item { text-align: center; color: white; opacity: 0.7; flex: 1; cursor: pointer; transition: 0.3s; }
+        .nav-item { text-align: center; color: white; opacity: 0.7; flex: 1; cursor: pointer; }
         .nav-item.active { opacity: 1; transform: translateY(-5px); }
-        .nav-item i { font-size: 20px; display: block; margin-bottom: 2px; }
-        .nav-item p { font-size: 10px; font-weight: bold; }
     </style>
 </head>
 <body>
 
-    <div id="success-notification">
-        <div style="background:rgba(255,255,255,0.2); width:35px; height:35px; border-radius:50%; display:flex; align-items:center; justify-content:center;">
-            <i class="fas fa-check" style="font-size:18px;"></i>
-        </div>
-        <div>
-            <h4 style="font-size:15px;">সফলভাবে সাবমিট হয়েছে!</h4>
-            <p style="font-size:11px; opacity:0.8;">আপনার লিংকটি আমাদের তালিকায় যুক্ত হলো।</p>
+    <div id="ban-modal">
+        <div class="ban-box">
+            <i class="fas fa-user-lock" style="font-size: 50px; color: #ff0000;"></i>
+            <h2 style="margin-top:15px;">অ্যাক্সেস ব্যান!</h2>
+            <p style="margin-top:10px; line-height:1.5;">আপনাকে সমসাময়িকের জন্য ব্যান করা হয়েছে। আপনি এডমিনের সাথে যোগাযোগ করুন।</p>
+            <button class="main-btn btn-purple" style="margin-top:20px; width:100%;" onclick="closeBanModal()">বন্ধ করুন</button>
         </div>
     </div>
 
@@ -118,195 +99,160 @@
         <div class="header-left">
             <div class="logo-circle"></div>
             <div class="brand-text-box">
-                <span class="brand-name">Support</span>
-                <span class="brand-name">Box</span>
+                <span class="brand-name">10 SEC</span>
+                <span class="brand-name">B2B</span>
             </div>
         </div>
         <a href="contact.html" class="contact-btn">Contact Us</a>
     </header>
 
-    <div style="background: rgba(0,0,0,0.2); padding: 8px 0; font-size: 12px; text-align: center;">
-        <marquee>সকাল ৮:০০ থেকে ৪:৩০ পর্যন্ত লিংক সাবমিট চালু থাকে। ধন্যবাদ।</marquee>
-    </div>
-
     <main>
         <section id="home-page" class="page active">
-            <div class="button-wrapper">
+            <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 20px;">
                 <button class="main-btn btn-green" onclick="showPage('submit-page')">আপনার লিংক যুক্ত করুন</button>
-                <button class="main-btn btn-purple" onclick="showPage('support-page')">সাপোর্ট শুরু করুন</button>
+                <button class="main-btn btn-purple" onclick="loadSupportTasks()">সাপোর্ট শুরু করুন</button>
             </div>
-
-            <h3 style="margin-top: 30px; color: #ffdb58; font-size: 16px;">আমাদের টিম মেম্বার</h3>
-            <div class="team-section">
-                <div class="member-slide active">
-                    <div class="member-img-large"></div>
-                    <div class="member-name">Arif Hasan</div><p style="color:#ffdb58; font-size:12px;">Admin & Founder</p>
-                </div>
-                <div class="member-slide">
-                    <div class="member-img-large"></div>
-                    <div class="member-name">Rakib Ahmed</div><p style="color:#ffdb58; font-size:12px;">Lead Developer</p>
-                </div>
-            </div>
-        </section>
+            </section>
 
         <section id="submit-page" class="page">
             <div class="card">
-                <h3 style="font-size:16px; margin-bottom:10px;">লিংক সাবমিট করুন</h3>
+                <h3 style="color:#ffdb58;">লিংক সাবমিট করুন</h3>
                 <input type="url" id="post-link" placeholder="ফেসবুক পোস্ট লিংক দিন...">
                 
-                <p style="margin-top: 12px; font-size:13px; color:#ffdb58;">রিয়েক্ট সিলেক্ট করুন:</p>
+                <p style="margin-top: 15px; font-size:14px;">রিয়েক্ট সিলেক্ট করুন:</p>
                 <div class="emoji-grid">
-                    <label><input type="checkbox"> 👍 Like</label>
-                    <label><input type="checkbox"> ❤️ Love</label>
-                    <label><input type="checkbox"> 😂 Haha</label>
-                    <label><input type="checkbox"> 🥰 Care</label>
+                    <label><input type="checkbox" name="react" value="Like"> 👍 Like</label>
+                    <label><input type="checkbox" name="react" value="Love"> ❤️ Love</label>
+                    <label><input type="checkbox" name="react" value="Haha"> 😂 Haha</label>
+                    <label><input type="checkbox" name="react" value="Care"> 🥰 Care</label>
                 </div>
 
                 <textarea id="msg" rows="3" placeholder="কি কমেন্ট চান লিখে দিন..."></textarea>
-                <button class="main-btn btn-green" style="width: 100%; margin-top: 15px;" id="submit-btn" onclick="submitLink()">সাবমিট করুন</button>
+                <button class="main-btn btn-green" style="width: 100%; margin-top: 15px;" id="submit-btn" onclick="checkAndSubmit()">সাবমিট করুন</button>
             </div>
         </section>
 
         <section id="support-page" class="page">
-            <div class="card">
-                <h3 style="color: #ffdb58;">সাপোর্ট শুরু হয়েছে!</h3>
-                <p style="margin-top:10px; font-size: 14px;">আপনার সাপোর্ট টাস্কগুলো এখানে দেখা যাবে।</p>
-                <button class="main-btn btn-purple" style="width:100%; margin-top:20px;" onclick="showPage('home-page')">হোমে ফিরে যান</button>
+            <h3 style="color: #ffdb58; margin-bottom: 20px;">সাপোর্ট টাস্ক তালিকা</h3>
+            <div id="live-task-list">
+                <p>লোড হচ্ছে...</p>
             </div>
         </section>
 
         <section id="profile-page" class="page">
-            <div class="card" style="padding: 15px;">
-                <h3 style="text-align: center; color: #ffdb58; margin-bottom: 15px; font-size: 16px;">ইউজার ড্যাশবোর্ড</h3>
-                
-                <div class="mini-stat">
-                    <h4>সাপোর্ট দিয়েছেন</h4>
-                    <div class="num">০</div>
-                </div>
-
-                <div class="mini-stat">
-                    <h4>সাপোর্ট পেয়েছেন</h4>
-                    <div class="num">০</div>
-                </div>
-
-                <div class="mini-stat" style="border-left-color: #00b09b;">
-                    <h4>আইপি অ্যাড্রেস</h4>
-                    <div id="user-ip" style="font-size: 12px; opacity: 0.8;">Checking...</div>
-                </div>
+            <div class="card">
+                <h3>ইউজার প্রোফাইল</h3>
+                <p id="display-ip" style="margin-top:10px; opacity:0.8;">IP: Checking...</p>
             </div>
         </section>
     </main>
 
     <nav class="bottom-nav">
-        <div class="nav-item active" id="nav-home" onclick="showPage('home-page', this)">
-            <i class="fas fa-home"></i><p>হোম</p>
-        </div>
-        <div class="nav-item" id="nav-profile" onclick="showPage('profile-page', this)">
-            <i class="fas fa-user-shield"></i><p>প্রোফাইল</p>
-        </div>
+        <div class="nav-item active" id="nav-h" onclick="showPage('home-page', this)"><i class="fas fa-home"></i><p>হোম</p></div>
+        <div class="nav-item" id="nav-s" onclick="loadSupportTasks(this)"><i class="fas fa-hands-helping"></i><p>সাপোর্ট</p></div>
+        <div class="nav-item" id="nav-p" onclick="showPage('profile-page', this)"><i class="fas fa-user"></i><p>প্রোফাইল</p></div>
     </nav>
 
     <script>
-        // স্লাইডার কন্ট্রোল
-        let sIdx = 0;
-        const slides = document.querySelectorAll('.member-slide');
-        setInterval(() => {
-            if(slides.length > 0) {
-                slides[sIdx].classList.remove('active');
-                sIdx = (sIdx + 1) % slides.length;
-                slides[sIdx].classList.add('active');
-            }
-        }, 3000);
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbxPXNZe-K9zNqck-GUH7nPY52A-PnUPIRhm94wles4hE2eQkHJBr6VOmmH85xeEJNrL9g/exec';
+        let userIP = "";
 
-        // পেজ সুইচিং ফাংশন
-        function showPage(pId, el) {
+        // আইপি সংগ্রহ
+        fetch('https://api.ipify.org?format=json').then(r => r.json()).then(d => {
+            userIP = d.ip;
+            document.getElementById('display-ip').innerText = "IP: " + d.ip;
+        });
+
+        function showPage(id, el) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            const targetPage = document.getElementById(pId);
-            if(targetPage) targetPage.classList.add('active');
-
+            document.getElementById(id).classList.add('active');
             if(el) {
                 document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
                 el.classList.add('active');
             }
-            window.scrollTo(0, 0);
         }
 
-        // আইপি অ্যাড্রেস সংগ্রহ
-        fetch('https://api.ipify.org?format=json')
-            .then(res => res.json())
-            .then(data => {
-                const ipEl = document.getElementById('user-ip');
-                if(ipEl) ipEl.innerText = data.ip;
-            })
-            .catch(() => {
-                const ipEl = document.getElementById('user-ip');
-                if(ipEl) ipEl.innerText = "IP Not Found";
-            });
+        // ব্যান চেক ও সাবমিট
+        async function checkAndSubmit() {
+            const btn = document.getElementById('submit-btn');
+            const link = document.getElementById('post-link').value;
+            if(!link) return alert("লিংক দিন!");
 
-        // --- নতুন এবং কার্যকরী সাবমিট ফাংশন ---
-        async function submitLink() {
-            const postLink = document.getElementById('post-link').value;
-            const comment = document.getElementById('msg').value;
-            const submitBtn = document.getElementById('submit-btn');
-            const userIP = document.getElementById('user-ip').innerText;
-            
-            // ইমোজি সংগ্রহ
-            let selectedReacts = [];
-            document.querySelectorAll('.emoji-grid input:checked').forEach(cb => {
-                selectedReacts.push(cb.parentElement.innerText.trim());
-            });
-
-            if(!postLink) {
-                alert("দয়া করে ফেসবুক পোস্ট লিংকটি দিন!");
-                return;
-            }
-
-            // !!! আপনার গুগল অ্যাপস স্ক্রিপ্ট এর নতুন WEB APP URL এখানে বসান !!!
-            const scriptURL = 'https://script.google.com/macros/s/AKfycbyVWdd5a79fiVNuvatkVAAtIHZgNA8Ckr5PsWg4ztZmvaQwdlykWXJQhm7cwHTXmqu7Dw/exec';
-
-            // বাটন ডিজেবল ও লোডিং টেক্সট
-            submitBtn.disabled = true;
-            submitBtn.innerText = "প্রসেসিং...";
-
-            const data = {
-                postLink: postLink,
-                reacts: selectedReacts.join(', '),
-                comment: comment,
-                ip: userIP
-            };
+            btn.disabled = true;
+            btn.innerText = "চেক করা হচ্ছে...";
 
             try {
-                // গুগল শিটে ডাটা পাঠানো
+                // ১. আইপি স্ট্যাটাস চেক
+                const checkRes = await fetch(scriptURL + "?action=checkStatus", {
+                    method: 'POST',
+                    body: JSON.stringify({ action: "checkStatus", ip: userIP })
+                });
+                const statusData = await checkRes.json();
+
+                if(statusData.status === "deactive") {
+                    document.getElementById('ban-modal').style.display = 'flex';
+                    btn.disabled = false;
+                    btn.innerText = "সাবমিট করুন";
+                    return;
+                }
+
+                // ২. ডাটা সাবমিট
+                let reacts = [];
+                document.querySelectorAll('input[name="react"]:checked').forEach(c => reacts.push(c.value));
+                const comment = document.getElementById('msg').value;
+
                 await fetch(scriptURL, {
                     method: 'POST',
-                    body: JSON.stringify(data)
+                    body: JSON.stringify({
+                        action: "submit",
+                        postLink: link,
+                        reacts: reacts.join(', '),
+                        comment: comment,
+                        ip: userIP
+                    })
                 });
 
-                // নোটিফিকেশন বার দেখানো
-                const notify = document.getElementById('success-notification');
-                notify.classList.add('show');
+                alert("সফলভাবে সাবমিট হয়েছে!");
+                loadSupportTasks();
 
-                // ইনপুট ফর্ম খালি করা
-                document.getElementById('post-link').value = '';
-                document.getElementById('msg').value = '';
-                document.querySelectorAll('.emoji-grid input').forEach(cb => cb.checked = false);
-
-                setTimeout(() => {
-                    notify.classList.remove('show');
-                    submitBtn.disabled = false;
-                    submitBtn.innerText = "সাবমিট করুন";
-                    
-                    // সফল সাবমিট হওয়ার পর 'সাপোর্ট শুরু করুন' পেজে নিয়ে যাওয়া
-                    showPage('support-page'); 
-                }, 2500);
-
-            } catch (error) {
-                console.error('Error!', error.message);
-                alert("কিছু একটা সমস্যা হয়েছে। আপনার ইন্টারনেট বা গুগল স্ক্রিপ্ট URL চেক করুন।");
-                submitBtn.disabled = false;
-                submitBtn.innerText = "সাবমিট করুন";
+            } catch (e) {
+                alert("ত্রুটি! গুগল শিট URL ঠিক আছে তো?");
+            } finally {
+                btn.disabled = false;
+                btn.innerText = "সাবমিট করুন";
             }
         }
+
+        // লাইভ টাস্ক লোড করা
+        async function loadSupportTasks(el) {
+            showPage('support-page', el || document.getElementById('nav-s'));
+            const listDiv = document.getElementById('live-task-list');
+            listDiv.innerHTML = "<p>আপডেট হচ্ছে...</p>";
+
+            try {
+                const res = await fetch(scriptURL);
+                const tasks = await res.json();
+                listDiv.innerHTML = "";
+
+                tasks.forEach((t, i) => {
+                    const item = document.createElement('div');
+                    item.className = 'support-item';
+                    item.innerHTML = `
+                        <div class="task-id">#${tasks.length - i}</div>
+                        <div style="flex:1;">
+                            <div style="font-size:12px; color:#00ffcc;">React: ${t.reacts}</div>
+                            <div style="font-size:13px; font-style:italic;">"${t.comment}"</div>
+                        </div>
+                        <a href="${t.link}" target="_blank" class="open-btn">OPEN</a>
+                    `;
+                    listDiv.appendChild(item);
+                });
+            } catch (e) {
+                listDiv.innerHTML = "<p>ডাটা পাওয়া যায়নি।</p>";
+            }
+        }
+
+        function closeBanModal() { document.getElementById('ban-modal').style.display = 'none'; }
     </script>
 </body>
 </html>
