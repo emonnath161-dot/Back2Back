@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - 10 SEC B2B</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* --- ১. মূল থিম ও ব্যাকগ্রাউন্ড --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        body {
+            background: linear-gradient(180deg, #0f0c29, #302b63, #24243e);
+            min-height: 100vh; color: white; display: flex; flex-direction: column; align-items: center;
+        }
+
+        /* --- ২. হেডার (লোগো ও নাম লম্বালম্বি) --- */
+        header {
+            width: 100%; display: flex; justify-content: flex-start; align-items: center;
+            padding: 20px; background: rgba(0, 0, 0, 0.2); backdrop-filter: blur(10px);
+        }
+        .header-left { display: flex; align-items: center; gap: 15px; }
+        .logo-circle {
+            width: 50px; height: 50px; background: #fff; border-radius: 50%;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+        }
+        .brand-text-box { display: flex; flex-direction: column; }
+        .brand-name { font-size: 1.2rem; font-weight: 900; line-height: 1.1; color: #fff; }
+
+        /* --- ৩. কন্টাক্ট সেকশন টাইটেল --- */
+        .contact-title { margin: 30px 0 20px; font-size: 1.5rem; font-weight: bold; color: #ffdb58; }
+
+        /* --- ৪. বড় মেইন বাটন (Support & Report) --- */
+        .main-contact-box { width: 90%; max-width: 400px; display: flex; flex-direction: column; gap: 15px; }
+        
+        .big-btn {
+            display: flex; align-items: center; padding: 18px; border-radius: 15px; border: none;
+            color: white; font-size: 1.1rem; font-weight: bold; cursor: pointer;
+            transition: all 0.3s ease; text-decoration: none;
+            position: relative; overflow: hidden;
+        }
+        .btn-support { background: linear-gradient(45deg, #f093fb 0%, #f5576c 100%); }
+        .btn-done { background: linear-gradient(45deg, #5ee7df 0%, #b490ca 100%); }
+
+        .btn-icon {
+            width: 40px; height: 40px; background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px; display: flex; align-items: center; justify-content: center;
+            margin-right: 15px; font-size: 20px;
+        }
+
+        /* ক্লিক করলে শ্যাডো অ্যানিমেশন */
+        .big-btn:active, .small-btn:active {
+            transform: scale(0.95);
+            box-shadow: 0 0 25px rgba(255, 255, 255, 0.5);
+        }
+
+        /* --- ৫. ছোট চারটি বাটন গ্রিড --- */
+        .small-btn-grid {
+            width: 90%; max-width: 400px; display: grid; 
+            grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 25px;
+        }
+        
+        .small-btn {
+            display: flex; align-items: center; padding: 12px; border-radius: 12px;
+            border: none; color: white; font-size: 14px; font-weight: 600;
+            cursor: pointer; transition: 0.3s; text-decoration: none;
+            background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        /* ছোট বাটনের জন্য আলাদা গ্রেডিয়েন্ট */
+        .g-1 { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .g-2 { background: linear-gradient(135deg, #2af598 0%, #009efd 100%); }
+        .g-3 { background: linear-gradient(135deg, #ff0844 0%, #ffb199 100%); }
+        .g-4 { background: linear-gradient(135deg, #fccb90 0%, #d57eeb 100%); }
+
+        .small-img {
+            width: 30px; height: 30px; border-radius: 50%;
+            background: #fff; margin-right: 10px; object-fit: cover;
+        }
+
+        /* --- ৬. ব্যাক বাটন --- */
+        .back-home { margin-top: 40px; color: #aaa; text-decoration: none; font-size: 14px; }
+        .back-home i { margin-right: 5px; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-left">
+            <div class="logo-circle"></div>
+            <div class="brand-text-box">
+                <span class="brand-name">10 SEC</span>
+                <span class="brand-name">B2B</span>
+            </div>
+        </div>
+    </header>
+
+    <h2 class="contact-title">আমাদের সাথে যুক্ত হন</h2>
+
+    <div class="main-contact-box">
+        <a href="#" class="big-btn btn-support">
+            <div class="btn-icon"><i class="fas fa-headset"></i></div>
+            Support & Report Box
+        </a>
+
+        <a href="#" class="big-btn btn-done">
+            <div class="btn-icon"><i class="fas fa-check-double"></i></div>
+            All Done ✅ Box
+        </a>
+    </div>
+
+    <div class="small-btn-grid">
+        <a href="#" class="small-btn g-1">
+            <img src="https://via.placeholder.com/30" class="small-img" alt="icon">
+            Telegram
+        </a>
+        <a href="#" class="small-btn g-2">
+            <img src="https://via.placeholder.com/30" class="small-img" alt="icon">
+            WhatsApp
+        </a>
+        <a href="#" class="small-btn g-3">
+            <img src="https://via.placeholder.com/30" class="small-img" alt="icon">
+            Facebook
+        </a>
+        <a href="#" class="small-btn g-4">
+            <img src="https://via.placeholder.com/30" class="small-img" alt="icon">
+            YouTube
+        </a>
+    </div>
+
+    <a href="index.html" class="back-home"><i class="fas fa-arrow-left"></i> হোম পেজে ফিরে যান</a>
+
+</body>
+</html>
