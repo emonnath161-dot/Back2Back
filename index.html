@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>10 SEC B2B - Professional Final</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* --- ১. বেসিক সেটিংস --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        body {
+            background: linear-gradient(180deg, #0f0c29, #302b63, #24243e);
+            min-height: 100vh; color: white; overflow-x: hidden;
+        }
+
+        /* --- ২. হেডার ফিক্সড --- */
+        header {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 15px 20px; background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px); position: sticky; top: 0; z-index: 1000;
+        }
+        .header-left { display: flex; align-items: center; gap: 15px; }
+        .logo-circle {
+            width: 45px; height: 45px; background: #fff; border-radius: 50%;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+        }
+        .brand-text-box { display: flex; flex-direction: column; } 
+        .brand-name { 
+            font-size: 1.1rem; font-weight: 900; line-height: 1; 
+            color: #fff; letter-spacing: 0.5px;
+        }
+
+        .contact-btn {
+            padding: 8px 18px; border-radius: 20px; border: none;
+            background: linear-gradient(45deg, #ff00cc, #3333ff);
+            color: white; font-weight: bold; font-size: 13px; cursor: pointer;
+            text-decoration: none; display: inline-block;
+        }
+
+        /* --- ৩. নোটিফিকেশন বার --- */
+        #success-notification {
+            position: fixed; top: -120px; left: 50%; transform: translateX(-50%);
+            width: 85%; max-width: 380px;
+            background: linear-gradient(135deg, #1D976C 0%, #93F9B9 100%);
+            color: #fff; padding: 15px; border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+            z-index: 9999; display: flex; align-items: center; gap: 12px;
+            transition: 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        #success-notification.show { top: 20px; }
+
+        /* --- ৪. পেজ ও স্লাইডার --- */
+        .page { display: none; padding: 20px; text-align: center; margin-bottom: 85px; }
+        .page.active { display: block; animation: fadeIn 0.4s ease; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        .team-section { margin-top: 30px; position: relative; width: 100%; height: 260px; overflow: hidden; }
+        .member-slide {
+            position: absolute; width: 100%; left: 0; top: 0; opacity: 0; 
+            visibility: hidden; transition: 0.8s; transform: scale(0.9);
+        }
+        .member-slide.active { opacity: 1; visibility: visible; transform: scale(1); }
+        .member-img-large {
+            width: 130px; height: 130px; border-radius: 50%;
+            background: #fff; margin: 0 auto 10px; border: 4px solid #ff00cc;
+        }
+
+        /* --- ৫. বাটন ও কার্ড --- */
+        .button-wrapper { display: flex; flex-direction: column; gap: 12px; margin-top: 20px; }
+        .main-btn {
+            padding: 16px; border-radius: 12px; border: none;
+            font-size: 1rem; font-weight: bold; color: white; cursor: pointer;
+        }
+        .btn-green { background: linear-gradient(to right, #00b09b, #96c93d); }
+        .btn-purple { background: linear-gradient(to right, #8e2de2, #4a00e0); }
+
+        .card { background: rgba(255, 255, 255, 0.1); padding: 20px; border-radius: 15px; text-align: left; }
+        input, textarea { width: 100%; padding: 10px; border-radius: 8px; border: none; background: #eee; margin-top: 8px; color: #333; }
+        
+        .emoji-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 12px 0; }
+        .emoji-grid label { background: rgba(255,255,255,0.08); padding: 8px; border-radius: 8px; font-size: 13px; display: flex; align-items: center; gap: 8px; }
+
+        /* --- ৬. প্রোফাইল পেজ --- */
+        .mini-stat {
+            background: rgba(255, 255, 255, 0.1); padding: 12px 15px; 
+            border-radius: 12px; border-left: 4px solid #ffdb58; 
+            margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center;
+        }
+        .mini-stat h4 { font-size: 13px; font-weight: 500; opacity: 0.9; }
+        .mini-stat .num { font-size: 18px; font-weight: bold; color: #ffdb58; }
+
+        /* --- ৭. বটম নেভিগেশন --- */
+        .bottom-nav {
+            position: fixed; bottom: 0; width: 100%; height: 70px;
+            background: linear-gradient(90deg, #6a11cb 0%, #2575fc 100%);
+            display: flex; justify-content: space-around; align-items: center;
+            border-radius: 20px 20px 0 0; z-index: 2000;
+        }
+        .nav-item { text-align: center; color: white; opacity: 0.7; flex: 1; cursor: pointer; transition: 0.3s; }
+        .nav-item.active { opacity: 1; transform: translateY(-5px); }
+        .nav-item i { font-size: 20px; display: block; margin-bottom: 2px; }
+        .nav-item p { font-size: 10px; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <div id="success-notification">
+        <div style="background:rgba(255,255,255,0.2); width:35px; height:35px; border-radius:50%; display:flex; align-items:center; justify-content:center;">
+            <i class="fas fa-check" style="font-size:18px;"></i>
+        </div>
+        <div>
+            <h4 style="font-size:15px;">সফলভাবে সাবমিট হয়েছে!</h4>
+            <p style="font-size:11px; opacity:0.8;">আপনার লিংকটি আমাদের তালিকায় যুক্ত হলো।</p>
+        </div>
+    </div>
+
+    <header>
+        <div class="header-left">
+            <div class="logo-circle"></div>
+            <div class="brand-text-box">
+                <span class="brand-name">10 SEC</span>
+                <span class="brand-name">B2B</span>
+            </div>
+        </div>
+        <a href="contact.html" class="contact-btn">Contact Us</a>
+    </header>
+
+    <div style="background: rgba(0,0,0,0.2); padding: 8px 0; font-size: 12px; text-align: center;">
+        <marquee>সকাল ৮:০০ থেকে ৪:৩০ পর্যন্ত লিংক সাবমিট চালু থাকে। ধন্যবাদ।</marquee>
+    </div>
+
+    <main>
+        <section id="home-page" class="page active">
+            <div class="button-wrapper">
+                <button class="main-btn btn-green" onclick="showPage('submit-page')">আপনার লিংক যুক্ত করুন</button>
+                <button class="main-btn btn-purple" onclick="showPage('support-page')">সাপোর্ট শুরু করুন</button>
+            </div>
+
+            <h3 style="margin-top: 30px; color: #ffdb58; font-size: 16px;">আমাদের টিম মেম্বার</h3>
+            <div class="team-section">
+                <div class="member-slide active">
+                    <div class="member-img-large"></div>
+                    <div class="member-name">Arif Hasan</div><p style="color:#ffdb58; font-size:12px;">Admin & Founder</p>
+                </div>
+                <div class="member-slide">
+                    <div class="member-img-large"></div>
+                    <div class="member-name">Rakib Ahmed</div><p style="color:#ffdb58; font-size:12px;">Lead Developer</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="submit-page" class="page">
+            <div class="card">
+                <h3 style="font-size:16px; margin-bottom:10px;">লিংক সাবমিট করুন</h3>
+                <input type="url" id="post-link" placeholder="ফেসবুক পোস্ট লিংক দিন...">
+                
+                <p style="margin-top: 12px; font-size:13px; color:#ffdb58;">রিয়েক্ট সিলেক্ট করুন:</p>
+                <div class="emoji-grid">
+                    <label><input type="checkbox"> 👍 Like</label>
+                    <label><input type="checkbox"> ❤️ Love</label>
+                    <label><input type="checkbox"> 😂 Haha</label>
+                    <label><input type="checkbox"> 🥰 Care</label>
+                </div>
+
+                <textarea id="msg" rows="3" placeholder="কি কমেন্ট চান লিখে দিন..."></textarea>
+                <button class="main-btn btn-green" style="width: 100%; margin-top: 15px;" id="submit-btn" onclick="submitLink()">সাবমিট করুন</button>
+            </div>
+        </section>
+
+        <section id="profile-page" class="page">
+            <div class="card" style="padding: 15px;">
+                <h3 style="text-align: center; color: #ffdb58; margin-bottom: 15px; font-size: 16px;">ইউজার ড্যাশবোর্ড</h3>
+                
+                <div class="mini-stat">
+                    <h4>সাপোর্ট দিয়েছেন</h4>
+                    <div class="num" id="give-count">০</div>
+                </div>
+
+                <div class="mini-stat">
+                    <h4>সাপোর্ট পেয়েছেন</h4>
+                    <div class="num" id="receive-count">০</div>
+                </div>
+
+                <div class="mini-stat" style="border-left-color: #00b09b;">
+                    <h4>আইপি অ্যাড্রেস</h4>
+                    <div id="user-ip" style="font-size: 12px; opacity: 0.8;">Checking...</div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <nav class="bottom-nav">
+        <div class="nav-item active" id="nav-home" onclick="showPage('home-page', this)">
+            <i class="fas fa-home"></i><p>হোম</p>
+        </div>
+        <div class="nav-item" id="nav-profile" onclick="showPage('profile-page', this)">
+            <i class="fas fa-user-shield"></i><p>প্রোফাইল</p>
+        </div>
+    </nav>
+
+    <script>
+        // স্লাইডার
+        let sIdx = 0;
+        const slides = document.querySelectorAll('.member-slide');
+        setInterval(() => {
+            slides[sIdx].classList.remove('active');
+            sIdx = (sIdx + 1) % slides.length;
+            slides[sIdx].classList.add('active');
+        }, 3000);
+
+        // পেজ সুইচ
+        function showPage(pId, el) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById(pId).classList.add('active');
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+            if(el) el.classList.add('active');
+            window.scrollTo(0, 0);
+        }
+
+        // --- ডাটাবেজ (Google Sheets) কানেকশন ---
+        async function submitLink() {
+            const postLink = document.getElementById('post-link').value;
+            const comment = document.getElementById('msg').value;
+            const submitBtn = document.getElementById('submit-btn');
+            
+            // সিলেক্টেড ইমোজিগুলো নেওয়া
+            let selectedReacts = [];
+            document.querySelectorAll('.emoji-grid input:checked').forEach(cb => {
+                selectedReacts.push(cb.parentElement.innerText.trim());
+            });
+
+            if(!postLink) {
+                alert("দয়া করে ফেসবুক পোস্ট লিংকটি দিন!");
+                return;
+            }
+
+            // আপনার গুগল অ্যাপস স্ক্রিপ্ট URL এখানে বসান
+            const scriptURL = 'আপনার_WEB_APP_URL_এখানে_বসাবেন';
+
+            // বাটন ডিজেবল করা যাতে বারবার ক্লিক না হয়
+            submitBtn.disabled = true;
+            submitBtn.innerText = "প্রসেসিং...";
+
+            const data = {
+                postLink: postLink,
+                reacts: selectedReacts.join(', '),
+                comment: comment,
+                ip: document.getElementById('user-ip').innerText
+            };
+
+            try {
+                // গুগল শিটে ডাটা পাঠানো
+                await fetch(scriptURL, {
+                    method: 'POST',
+                    mode: 'no-cors', // গুগল শিটের জন্য এটি প্রয়োজন
+                    cache: 'no-cache',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+
+                // সফল হলে নোটিফিকেশন দেখানো
+                const notify = document.getElementById('success-notification');
+                notify.classList.add('show');
+
+                // ফর্ম ক্লিয়ার করা
+                document.getElementById('post-link').value = '';
+                document.getElementById('msg').value = '';
+
+                setTimeout(() => {
+                    notify.classList.remove('show');
+                    showPage('home-page', document.getElementById('nav-home'));
+                    submitBtn.disabled = false;
+                    submitBtn.innerText = "সাবমিট করুন";
+                }, 3500);
+
+            } catch (error) {
+                console.error('Error!', error.message);
+                alert("দুঃখিত, ডাটা পাঠাতে সমস্যা হয়েছে। আবার চেষ্টা করুন।");
+                submitBtn.disabled = false;
+                submitBtn.innerText = "সাবমিট করুন";
+            }
+        }
+
+        // আইপি অ্যাড্রেস অটো দেখানো
+        fetch('https://api.ipify.org?format=json')
+            .then(res => res.json())
+            .then(data => document.getElementById('user-ip').innerText = data.ip)
+            .catch(() => document.getElementById('user-ip').innerText = "103.XXX.XX.XX");
+            
+    </script>
+</body>
+</html>
